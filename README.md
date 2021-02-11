@@ -63,21 +63,21 @@ Para ilustrar el uso del framework Spring, y el ambiente de desarrollo para el u
 	**Para realizar un programa de prueba, se crean dos instancias en ```GrammarChecker``` mediante Spring, en donde en la clase ```Main``` se implementan dos nuevos métodos llamados ```PrimeraPrueba``` y ```SegundaPrueba``` respectivamente. Cada una de ellas realizan dos pruebas por separado dodne realiza la ejecución del programa con la frase ingresada en inglés en cada una de ellas, como se observa en el código a continuación.**
 	
 	```java
-	public class Main {
-    		public static void main(String a[]) {
-    			PrimeraPrueba();
-        		SegundaPrueba();
-    		}
-    		public static void PrimeraPrueba(){
-        		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-        		GrammarChecker gc = ac.getBean(GrammarChecker.class);
-        		System.out.println(gc.check("Performing grammar check in Spanish. "));
-    		}
-    		public static void SegundaPrueba(){
-        		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-        		GrammarChecker gc = ac.getBean(GrammarChecker.class);
-        		System.out.println(gc.check("Performing second grammar check in Spanish. "));
-    		}
+		public class Main {
+	    public static void main(String a[]) {
+		PrimeraPrueba();
+		SegundaPrueba();
+	    }
+	    public static void PrimeraPrueba(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		GrammarChecker gc = ac.getBean(GrammarChecker.class);
+		System.out.println(gc.check("Performing grammar check in Spanish. "));
+	    }
+	    public static void SegundaPrueba(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		GrammarChecker gc = ac.getBean(GrammarChecker.class);
+		System.out.println(gc.check("Performing second grammar check in Spanish. "));
+	    }
 	}
 	```
 	
