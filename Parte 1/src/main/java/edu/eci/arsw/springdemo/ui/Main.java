@@ -4,21 +4,26 @@
  * and open the template in the editor.
  */
 package edu.eci.arsw.springdemo.ui;
-
 import edu.eci.arsw.springdemo.GrammarChecker;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 /**
  *
  * @author hcadavid
  */
 public class Main {
-
     public static void main(String a[]) {
+    	PrimeraPrueba();
+        SegundaPrueba();
+    }  
+    public static void PrimeraPrueba(){
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         GrammarChecker gc = ac.getBean(GrammarChecker.class);
-        System.out.println(gc.check("la la la "));
+        System.out.println(gc.check("Realizando verificación de gramática en español. "));
     }
-
+    public static void SegundaPrueba(){
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        GrammarChecker gc = ac.getBean(GrammarChecker.class);
+        System.out.println(gc.check("Realizando segunda verificación de gramática en español. "));
+    }
 }
