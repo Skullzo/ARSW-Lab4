@@ -1,12 +1,7 @@
-********************************************************************************
-## Parte I
-********************************************************************************
-
 # Escuela Colombiana de Ingeniería
 # Arquitecturas de Software - ARSW
-### Taller – Principio de Inversión de dependencias, Contenedores Livianos e Inyección de dependencias.
-
-Parte I. Ejercicio básico.
+## Taller – Principio de Inversión de dependencias, Contenedores Livianos e Inyección de dependencias.
+### Parte I. Ejercicio básico.
 
 Para ilustrar el uso del framework Spring, y el ambiente de desarrollo para el uso del mismo a través de Maven (y NetBeans), se hará la configuración de una aplicación de análisis de textos, que hace uso de un verificador gramatical que requiere de un corrector ortográfico. A dicho verificador gramatical se le inyectará, en tiempo de ejecución, el corrector ortográfico que se requiera (por ahora, hay dos disponibles: inglés y español).
 
@@ -31,18 +26,10 @@ Para ilustrar el uso del framework Spring, y el ambiente de desarrollo para el u
 	
 6.	Modifique la configuración con anotaciones para que el Bean ‘GrammarChecker‘ ahora haga uso del  la clase SpanishSpellChecker (para que a GrammarChecker se le inyecte EnglishSpellChecker en lugar de  SpanishSpellChecker. Verifique el nuevo resultado.
 
+----------
 
-********************************************************************************
---------------------------------------------------------------------------------
-********************************************************************************
-## Parte II
-********************************************************************************
---------------------------------------------------------------------------------
-********************************************************************************
-### Escuela Colombiana de Ingeniería
+## Laboratorio Componentes y conectores  Middleware - gestión de planos
 
-### Arquitecturas de Software
-## Laboratorio Componentes y conectores  Middleware- gestión de planos
 ### Dependencias
 * [Ejercicio introductorio al manejo de Spring y la configuración basada en anotaciones](https://github.com/ARSW-ECI-beta/DIP_DI-SPRING_JAVA-GRAMMAR_CHECKER).
 
