@@ -90,6 +90,46 @@ Para ilustrar el uso del framework Spring, y el ambiente de desarrollo para el u
 	
 6.	Modifique la configuración con anotaciones para que el Bean ‘GrammarChecker‘ ahora haga uso del  la clase SpanishSpellChecker (para que a GrammarChecker se le inyecte EnglishSpellChecker en lugar de  SpanishSpellChecker. Verifique el nuevo resultado.
 
+**Ahora para que el Bean ```GrammarChecker``` ahora haga uso del  la clase ```SpanishSpellChecker```, primero en la clase ```EnglishSpellChecker``` se quita la anotación ```@Service```, y ésta misma anotación se agrega a la clase ```SpanishSpellChecker```, quedando así la clase ```SpanishSpellChecker``` de la siguiente forma.**
+
+```java
+@Service
+public class SpanishSpellChecker implements SpellChecker {
+	@Override
+	public String checkSpell(String text) {
+		return "revisando ("+text+") con el verificador de sintaxis del espanol";                            
+	}
+}
+```
+
+**Luego en la clase ```Main```, cambiamos ahora el texto ingresado en las dos pruebas de inglés a español, para realizar la respectiva verificación de gramática en español, quedando de la siguiente forma.**
+
+```java
+public class Main {
+    public static void main(String a[]) {
+    	PrimeraPrueba();
+        SegundaPrueba();
+    }  
+    public static void PrimeraPrueba(){
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        GrammarChecker gc = ac.getBean(GrammarChecker.class);
+        System.out.println(gc.check("Realizando verificación de gramática en español. "));
+    }
+    public static void SegundaPrueba(){
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        GrammarChecker gc = ac.getBean(GrammarChecker.class);
+        System.out.println(gc.check("Realizando segunda verificación de gramática en español. "));
+    }
+}
+```
+
+**Luego de compilar y ejecutar en Maven tras hacer las respectivas modificaciones a las pruebas, se obtiene el siguiente resultado. Como se puede ver a continuación, se realiza la respectiva ejecución de ```SpanishSpellChecker``` como se propuso en el enunciado.**
+
+```
+Spell checking output:revisando (Realizando verificación de gramática en español. ) con el verificador de sintaxis del espanolPlagiarism checking output: Not available yet
+Spell checking output:revisando (Realizando segunda verificación de gramática en español. ) con el verificador de sintaxis del espanolPlagiarism checking output: Not available yet
+```
+
 ----------
 
 ## Laboratorio Componentes y conectores  Middleware - gestión de planos
