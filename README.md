@@ -12,6 +12,30 @@ Para ilustrar el uso del framework Spring, y el ambiente de desarrollo para el u
 3. Haciendo uso de la [configuración de Spring basada en anotaciones](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-spring-beans-and-dependency-injection.html) marque con las anotaciones @Autowired y @Service las dependencias que deben inyectarse, y los 'beans' candidatos a ser inyectadas -respectivamente-:
 
 	* GrammarChecker será un bean, que tiene como dependencia algo de tipo 'SpellChecker'.
+	
+	**Para realizar el siguiente procedimiento, se agrega a la clase ```GrammarChecker``` la anotación ```@Service```, y en ```SpellChecker``` se agrega la anotación ```@Autowired```, quedando la clase ```GrammarChecker``` como se ve a continuación.**
+	
+	```java
+	@Service
+	public class GrammarChecker {	
+		@Autowired
+		SpellChecker sc;
+		String x;            
+		public SpellChecker getSpellChecker() {
+			return sc;
+		}
+		public void setSpellChecker(SpellChecker sc) {
+			this.sc = sc;
+		}
+		public String check(String text){		
+			StringBuffer sb=new StringBuffer();
+			sb.append("Spell checking output:"+sc.checkSpell(text));
+			sb.append("Plagiarism checking output: Not available yet");	
+			return sb.toString();	
+		}	
+	}
+	```
+	
 	* EnglishSpellChecker y SpanishSpellChecker son los dos posibles candidatos a ser inyectados. Se debe seleccionar uno, u otro, mas NO ambos (habría conflicto de resolución de dependencias). Por ahora haga que se use EnglishSpellChecker.
  
 5.	Haga un programa de prueba, donde se cree una instancia de GrammarChecker mediante Spring, y se haga uso de la misma:
