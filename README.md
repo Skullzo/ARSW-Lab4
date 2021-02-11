@@ -64,21 +64,21 @@ Para ilustrar el uso del framework Spring, y el ambiente de desarrollo para el u
 	
 	```java
 		public class Main {
-	    public static void main(String a[]) {
-		PrimeraPrueba();
-		SegundaPrueba();
-	    }
-	    public static void PrimeraPrueba(){
-		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-		GrammarChecker gc = ac.getBean(GrammarChecker.class);
-		System.out.println(gc.check("Performing grammar check in Spanish. "));
-	    }
-	    public static void SegundaPrueba(){
-		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-		GrammarChecker gc = ac.getBean(GrammarChecker.class);
-		System.out.println(gc.check("Performing second grammar check in Spanish. "));
-	    }
-	}
+	    		public static void main(String a[]) {
+				PrimeraPrueba();
+				SegundaPrueba();
+	    		}
+	    		public static void PrimeraPrueba(){
+				ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+				GrammarChecker gc = ac.getBean(GrammarChecker.class);
+				System.out.println(gc.check("Performing grammar check in Spanish. "));
+	    		}	
+	    		public static void SegundaPrueba(){
+				ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+				GrammarChecker gc = ac.getBean(GrammarChecker.class);
+				System.out.println(gc.check("Performing second grammar check in Spanish. "));
+	    		}	
+		}
 	```
 	
 	**Luego de realizar la implementación de las dos pruebas, al compilar y ejecutar en Maven, se obtiene el siguiente resultado. Como se puede ver a continuación, se realiza la respectiva ejecución de ```EnglishSpellChecker``` como se propuso en el enunciado.**
