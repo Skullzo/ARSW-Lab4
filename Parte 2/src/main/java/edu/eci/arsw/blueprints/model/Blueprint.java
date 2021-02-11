@@ -82,10 +82,6 @@ public class Blueprint {
                 return false;
             }
         }
-        
         return true;
     }
-    
-    
-    
 }
