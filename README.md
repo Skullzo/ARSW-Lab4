@@ -156,6 +156,91 @@ En este ejercicio se va a construír un modelo de clases para la capa lógica de
 
 2. Complete los operaciones getBluePrint() y getBlueprintsByAuthor(). Implemente todo lo requerido de las capas inferiores (por ahora, el esquema de persistencia disponible 'InMemoryBlueprintPersistence') agregando las pruebas correspondientes en 'InMemoryPersistenceTest'.
 
+**Para realizar el siguiente procedimiento, en la clase ```InMemoryBlueprintPersistence``` completamos las operaciones correspondientes de ```getBluePrint()```, quedando de la siguiente forma.**
+
+```java
+@Override
+public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
+	return blueprints.get(new Tuple<>(author, bprintname));
+}
+```
+
+**Luego, en la clase ```BlueprintsPersistence``` se completan las respectivas operaciones de ```getBluePrint()``` de la siguiente forma.**
+
+```java
+public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
+	return bpp.getBlueprint(author, name);
+}
+```
+
+**Ahora en la clase ```InMemoryBlueprintPersistence``` se completan las operaciones de ```getBlueprintByAuthor()``` de la siguiente forma.**
+
+```java
+public Set<Blueprint> getBlueprintByAuthor(String auth) {
+      Set<Blueprint> authorBlueprints = new HashSet<>();
+      for (Tuple<String, String> key : blueprints.keySet()) {
+          if (key.getElem1().equals(auth)) {
+              authorBlueprints.add(blueprints.get(key));
+          }
+      }
+      return authorBlueprints;
+}
+```
+
+**Para completar las operaciones de ```getBlueprintsByAuthor()``` en la clase ```BlueprintsPersistence```, se agregan las siguientes modificaciones.**
+
+```java
+public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
+     return bpp.getBlueprintByAuthor(author);
+}
+```
+
+**Para implementar todo lo requerido de las capas inferiores, se agregan las siguientes pruebas correspondientes en ```InMemoryPersistenceTest``` tanto para ```getBluePrint()```, como para ```getBlueprintsByAuthor()``` respectivamente, quedando de la siguiente forma.**
+
+```java
+@Test
+  public void getBlueprintTest(){
+      InMemoryBlueprintPersistence ibpp = new InMemoryBlueprintPersistence();
+      Point[] pts = new Point[]{new Point(0, 0),new Point(10, 10)};
+      Blueprint bp = new Blueprint("john", "theRipper",pts);
+      try {
+          ibpp.saveBlueprint(bp);
+      } catch (BlueprintPersistenceException e) {
+          fail("InMemoryBluePrintsPersistence save error.");
+      }
+      Blueprint resultBp=null;
+      try {
+          resultBp = ibpp.getBlueprint("john","theRipper");
+      } catch (BlueprintNotFoundException e) {
+          fail("InMemoryBluePrintsPersistence get error.");
+      }
+      assertEquals(resultBp,bp);
+  }
+@Test
+  public void getBlueprintByAuthorTest(){
+      InMemoryBlueprintPersistence ibpp = new InMemoryBlueprintPersistence();
+      Point[] pts1 = new Point[]{new Point(0, 0),new Point(10, 10)};
+      Blueprint bp1 = new Blueprint("john", "thepaint",pts1);
+      Point[] pts2 = new Point[]{new Point(0, 45),new Point(45, 10)};
+      Blueprint bp2 = new Blueprint("john", "theRipper",pts2);
+      Point[] pts3 = new Point[]{new Point(23, 43),new Point(56, 10)};
+      Blueprint bp3 = new Blueprint("juan", "saltaMuros",pts3);
+      Set<Blueprint> authorBlueprints = new HashSet<>();
+      authorBlueprints.add(bp1);
+      authorBlueprints.add(bp2);
+
+      try {
+          ibpp.saveBlueprint(bp1);
+          ibpp.saveBlueprint(bp2);
+          ibpp.saveBlueprint(bp3);
+      } catch (BlueprintPersistenceException ex) {
+          fail("InMemoryBluePrintsPersistence save error.");
+      }
+      assertEquals(ibpp.getBlueprintByAuthor("john"),authorBlueprints);
+  }
+}
+```
+
 3. Haga un programa en el que cree (mediante Spring) una instancia de BlueprintServices, y rectifique la funcionalidad del mismo: registrar planos, consultar planos, registrar planos específicos, etc.
 
 4. Se quiere que las operaciones de consulta de planos realicen un proceso de filtrado, antes de retornar los planos consultados. Dichos filtros lo que buscan es reducir el tamaño de los planos, removiendo datos redundantes o simplemente submuestrando, antes de retornarlos. Ajuste la aplicación (agregando las abstracciones e implementaciones que considere) para que a la clase BlueprintServices se le inyecte uno de dos posibles 'filtros' (o eventuales futuros filtros). No se contempla el uso de más de uno a la vez:
