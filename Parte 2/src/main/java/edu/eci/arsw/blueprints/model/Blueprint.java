@@ -19,13 +19,19 @@ public class Blueprint {
         this.author=author;
         this.name=name;
         points=Arrays.asList(pnts);
-    }
-         
-    public Blueprint(String author, String name){
+    }   
+    public Blueprint(String author,String name,List<Point> pnts){
+        this.author=author;
         this.name=name;
-        points=new ArrayList<>();
+        points=pnts;
     }
 
+    public Blueprint(String author, String name){
+        this.name=name;
+        this.author=author;
+        points=new ArrayList<>();
+    }
+    
     public Blueprint() {
     }    
     
