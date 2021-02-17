@@ -389,11 +389,32 @@ public class RedundancyFilterTest {
 }
 ```
 
+**Por último, se realizaron las respectivas pruebas del filtrado de submuestreo, realizando la respectiva comparación del tamaño de los puntos utilizando *assertTrue*. Las pruebas fueron implementadas de la siguiente forma.**
+
+```java
+public class SubsamplingFilterTest {
+    @Test
+    public void subsamplingFiltering(){
+        SubsamplingFilter prueba = new SubsamplingFilter();
+        Point puntos[] = {new Point(1,2), new Point(3,4), new Point(5,6), new Point(7,8), new Point(9,10)};
+        Blueprint blueprint = new Blueprint("mack","mypaint",puntos);
+        blueprint = prueba.filter(blueprint);
+        List<Point> resPuntos = new ArrayList<>();
+        resPuntos.add(new Point(1,2));
+        resPuntos.add(new Point(5,6));
+        resPuntos.add(new Point(9,10));
+        assertTrue(blueprint.getPoints().size() == resPuntos.size());
+        List<Point> res = blueprint.getPoints();
+        for (int i = 0; i < res.size(); i++){
+            assertEquals(resPuntos.get(i),res.get(i));
+        }
+    }
+}
+```
+
 **Para finalizar, luego de ejecutar las pruebas en Maven al ejecutar el comando ```mvn test```, las pruebas compilaron satisfactoriamente, como se ve en la imagen a continuación, demostrando que las pruebas fueron implementadas con éxito.**
 
 ![img](https://github.com/Skullzo/ARSW-Lab4/blob/main/img/Pruebas.PNG)
-
-**Por último, se realizaron las respectivas pruebas.**
 
 ## Autores
 [Alejandro Toro Daza](https://github.com/Skullzo)
