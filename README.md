@@ -366,6 +366,35 @@ public class Main {
 
 5. Agrege las pruebas correspondientes a cada uno de estos filtros, y pruebe su funcionamiento en el programa de prueba, comprobando que sólo cambiando la posición de las anotaciones -sin cambiar nada más-, el programa retorne los planos filtrados de la manera (A) o de la manera (B). 
 
+**A continuación, se realizan las respectivas pruebas para cada uno de los filtros. Primero se realizó la prueba del filtrado de redundancias, realizando la respectiva comparación del tamaño de los puntos utilizando *assertTrue*. Las pruebas fueron implementadas de la siguiente forma.**
+
+```java
+public class RedundancyFilterTest {
+    @Test
+    public void filterRepeated() {
+        RedundancyFilter prueba = new RedundancyFilter();
+        Point puntos[] = {new Point(1, 1), new Point(1, 1), new Point(2, 2), new Point(2, 2), new Point(3, 3), new Point(3, 3)};
+        Blueprint blueprint = new Blueprint("mack", "mypaint", puntos);
+        blueprint = prueba.filter(blueprint);
+        List<Point> resPuntos = new ArrayList<>();
+        resPuntos.add(new Point(1, 1));
+        resPuntos.add(new Point(2, 2));
+        resPuntos.add(new Point(3, 3));
+        assertTrue(blueprint.getPoints().size() == resPuntos.size());
+        List<Point> res = blueprint.getPoints();
+        for (int i = 0; i < res.size(); i++){
+            assertEquals(resPuntos.get(i),res.get(i));
+        }
+    }
+}
+```
+
+**Para finalizar, luego de ejecutar las pruebas en Maven al ejecutar el comando ```mvn test```, las pruebas compilaron satisfactoriamente, como se ve en la imagen a continuación, demostrando que las pruebas fueron implementadas con éxito.**
+
+![img](https://github.com/Skullzo/ARSW-Lab4/blob/main/img/Pruebas.PNG)
+
+**Por último, se realizaron las respectivas pruebas.**
+
 ## Autores
 [Alejandro Toro Daza](https://github.com/Skullzo)
 
