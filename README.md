@@ -389,9 +389,9 @@ public class RedundancyFilterTest {
 }
 ```
 
-**Luego de ejecutar las pruebas en Maven al ejecutar el comando ```mvn test```, las pruebas han sido compiladas satisfactoriamente, como se ve en la imagen a continuación.**
+**Para finalizar, luego de ejecutar las pruebas en Maven al ejecutar el comando ```mvn test```, las pruebas compilaron satisfactoriamente, como se ve en la imagen a continuación, demostrando que las pruebas fueron implementadas con éxito.**
 
-![img](https://github.com/Skullzo/AREP-Lab3/blob/main/img/Pruebas.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab4/blob/main/img/Pruebas.PNG)
 
 **Por último, se realizaron las respectivas pruebas.**
 
