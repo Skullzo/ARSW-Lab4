@@ -273,13 +273,74 @@ public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFo
 	* (A) Filtrado de redundancias: suprime del plano los puntos consecutivos que sean repetidos.
 	* (B) Filtrado de submuestreo: suprime 1 de cada 2 puntos del plano, de manera intercalada.
 
-
-
-
 **Ahora, creamos la clase ```BlueprintsFilter``` para que la consulta de planos se realicen con un proceso de filtrado, antes de retornar los planos consultados, para así reducir el tamaño de los planos, removiendo datos redundantes o simplemente submuestrando, antes de retornarlos, quedando la clase de la siguiente forma.**
 
 ```java
-Agregar codigo;
+public interface BlueprintsFilter {
+    public Blueprint filter(Blueprint bp);
+}
+```
+
+**Para realizar el filtrado por redundancias, para poder suprimir del plano los puntos consecutivos que sean repetidos, se crea la clase ```RedundancyFilter```, que se encarga de realizar dichas operaciones. La clase se implementó de la siguiente forma.**
+
+```java
+@Service("RedundancyFilter")
+public class RedundancyFilter implements BlueprintsFilter {
+    @Override
+    public Blueprint filter(Blueprint bp) {
+        ArrayList<Point> points=new ArrayList<Point>();
+        for (Point i :bp.getPoints()){
+            boolean found=false;
+            for(Point j : points){
+                if(i.equals(j)){
+                    found=true;
+                    break;
+                }
+            }
+            if(!found)points.add(i);
+        }
+        return new Blueprint(bp.getAuthor(),bp.getName(),points);
+    }
+}
+```
+
+**Para realizar el filtrado de submuestreo, para poder suprimir 1 de cada 2 puntos del plano, de manera intercalada, se crea la clase ```SubsamplingFilter```, que se encarga de realizar dichas operaciones. La clase se implementó de la siguiente forma.**
+
+```java
+@Service("SubsamplingFilter")
+public class SubsamplingFilter implements BlueprintsFilter {
+    @Override
+    public Blueprint filter(Blueprint bp) {
+        List<Point> oldPoints=bp.getPoints();
+        ArrayList<Point> points=new ArrayList<Point>();
+        for(int i=0;i<oldPoints.size();i++){
+            if(i%2==0){
+                points.add(oldPoints.get(i));
+            }
+        }
+        return new Blueprint(bp.getAuthor(),bp.getName(),points);
+    }
+}
+```
+
+**Luego de crear las clases ```BlueprintsFilter```, ```RedundancyFilter``` y ```SubsamplingFilter```, se procede a realizar las siguientes modificaciones en la clase ```Blueprint```, para poder recolectar el autor, el nombre y los puntos respectivamente, como se muestra en el siguiente código.**
+
+```java
+public Blueprint(String author,String name,List<Point> pnts){
+        this.author=author;
+        this.name=name;
+        points=pnts;
+}
+```
+
+**Ahora, se realiza la siguiente modificación a la clase ```Blueprint```, creando un ArrayList con el nombre, el autor y los puntos respectivamente.**
+
+```java
+public Blueprint(String author, String name){
+        this.name=name;
+        this.author=author;
+        points=new ArrayList<>();
+}
 ```
 
 **Por último, se realiza un método ```Main``` encargado de la ejecución de todo el programa, para así poder ejecutarlo y tener los resultados respectivamente. El método queda de la siguiente forma.**
